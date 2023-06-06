@@ -1,6 +1,6 @@
 > **NOTE:** This README.md file should be placed at the **root of each of your main directory.**
 
-# LIS4930
+# LIS4930 - Exploration into Deep Learning and AI
 
 ## Anthony Patregnani
 
