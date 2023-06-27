@@ -1,0 +1,555 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "b7ad5b57-8834-4f11-a223-9023cc33c789",
+   "metadata": {},
+   "source": [
+    "# Regression Analysis\n",
+    "## What is regression analysis?\n",
+    "### 1. Equation predicts \"unksown values\" (le, dependent variables) based upon one or more known values (ie, independent voriables)\n",
+    "### 2. Dependent variables (also called): response, oufcome/butpur, or larger variables (respond to changes in (another variables\n",
+    "### 3. Independent variables (also called): predictor, input, regressor, or explanatory variable(s) (predict/explain changed values of dependent variable(si\n",
+    "### 4. Goal: Find the best fitting line which can accurately predict the output.\n",
+    "## Dependent variables (output on y-axis) are afways the ones being studied - that is, , whose variations) is/are being modified somehow!\n",
+    "## independent variables (input on x-axis) are always the ones being manipulated, to study and compare the effects on the dependent var\n",
+    "## https://www.statisticssolutions.com/independent-and-dependent-variables/\n",
+    "## https://www.scribbe.com/methodologw/independent-and-dependent-variables/\n",
+    "## Note: The designations independent and dependent variables are used to not imply \"cause and effect? (as do \"predictor' or \"explanatory terms).\n",
+    "## Note: Based on the number of input and output variables, linear regression has three types:\n",
+    "### 1. Simple linear regression (1 DV/1 I)\n",
+    "### 2. Multiple linear regression (1 DM/2 or more IV5)\n",
+    "### 3. Multivariate linear regression (2 or more OVS/2 or more (VS)\n",
+    "## Simple linear regression: Only one independent variable affecting one dependent variabl\n",
+    "## Multiple linear regression: Two or more independent variables affecting one dependent variable.\n",
+    "\n",
+    "# Multiple linear regression: Two or more independent variables affecting one dependent variable.\n",
+    "# Multivariate linear regression: Two or more independent variables affecting two or more dependent variables.\n",
+    "\n",
+    "# Linear Regression in Python:\n",
+    "\n",
+    "# https://www.realpython.com/linear-regression-in-python/\n",
+    "\n",
+    "# Linear Regression in 2 minutes:\n",
+    "\n",
+    "# https://www.youtube.com/watch?v=CtsRRUddV2s \n",
+    "\n",
+    "# Regression in Machine Learning: What it is and examples of different models:\n",
+    "\n",
+    "# https://www.builtin.com/data-science/regression-machine-learning\n",
+    "\n",
+    "# Independent Variables vs. Dependent Variables\n",
+    "\n",
+    "## Independent Variables (predictors):\n",
+    "\n",
+    "### • Can the variable(s) be manipulated or controlled?\n",
+    "\n",
+    "### • \"Do(es) the variable(s) come before the other variables) chronologically?\n",
+    "\n",
+    "### • Is/are the variables being used to see the affects on (anjother variable(s)?\n",
+    "\n",
+    "## Dependent variables (outcomes):\n",
+    "\n",
+    "### • Is/are the variable(s) being used as (a) measured outcome(st?\n",
+    "\n",
+    "### • \"Do(es) the variable(s) depend upon an(other) variable|s)?\n",
+    "\n",
+    "### • Is/are this/these variables) measured after (anjother variable(s) is/are modified?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7f0bd6dc-920e-457a-a488-a79ab3e68615",
+   "metadata": {},
+   "source": [
+    "# Project 1 - Predictive Analysis (Simple Linear Regression) #\n",
+    "\n",
+    "## Developer: Anthony Patregnani ##\n",
+    "\n",
+    "## Course: Exploration into Al, Machine and Deep Leaming ##\n",
+    "\n",
+    "## Program Requirements: ##\n",
+    "\n",
+    "### 1. Contrast similarities/differences among Al vs. Machine-Leaming vs. Deep-Leaming\n",
+    "### 2. Identify correlations\n",
+    "### 3. Use Seabom (data visualization library built on top of matplotlib)\n",
+    "### 4. Grach correlations\n",
+    "### 5. Use simple linear regression\n",
+    "### 6. Create linear model\n",
+    "### 7. Plot regression line\n",
+    "### 8. Mace predictions - using simple linear regression model\n",
+    "### 9. Plot residuals"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "df49d262-6fda-4894-a1e7-ed9c5ac6ddbe",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 1. import pondas and seaborn (butlt on top of matplotith)\n",
+    "\n",
+    "import pandas as pd\n",
+    "import seaborn as sns"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ec8c497c-2131-4f8b-9ca0-3bc80b990cce",
+   "metadata": {},
+   "source": [
+    "# Get data - read cleaned .csv file"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e8c9eced-7dd4-4d6e-b1f6-e58688859adf",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 2. assign cleaned .csv file to \"housing data\" variable, then read .cv file to \"houstng\" variable\n",
+    "# Note: Here is a to-step process for demonstration purposes (tvo steps easter than using Long paths and/or Long file names, as per note below)\n",
+    "\n",
+    "housing_data = \"housing_data.csv\" # *MUST* be in same directory as -ipynb file\n",
+    "housing = pd.read_csv(housing_data)\n",
+    "\n",
+    "# Note: Could have asso accomplished the process in one step...\n",
+    "# housing = pd.read_csw(\"housting_data.csv\") # *MUST* be in same directory as . ipynb file"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "8bf20b01-1c06-43bb-907a-1c7850811120",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 3. find houses where sqft of Living space is Less than 8800 sqft and price is greater then $0, and Less than $1,000,009\n",
+    "housing = housing.query('sqft_living < 8000 and price < 1000000 and price > 0')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b6ac5dff-e6ee-4330-8b88-88e213f2994a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 4. Add additional attribute to \"housing\" dataframe called \"has_basement\"--*if* basement SQFT is greater than 0.\n",
+    "housing['has_basement'] = housing['sqft_basement'].apply(lambda x: True if x > 0 else False)\n",
+    "\n",
+    "# Note: Lambda expressions are used to construct anonymous functions- -using the \"Lambda\" keyword.\n",
+    "# pandas.Dataframe.apply() can be used to execute Lambda expressions. It also con take ony number of arguments."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "07af1b31-be28-4785-a58d-a9d7a43c9ded",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 5. drop unconcerned columns (Note: Other attributes could be fecLuded and studted Later.)\n",
+    "housing = housing.drop(columns=['date','street','city', 'statezip', 'country', 'sqft_lot', 'yr_renovated', 'sqft_basement'])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "aeb803a0-5f90-4418-95ca-e1076afaa55a",
+   "metadata": {},
+   "source": [
+    "# Housing Dataset"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7779aa81-3e18-4e7c-be04-2960f268412c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 6. print dataframe info \n",
+    "# Note: also, indicates null values, which, if present, would need to be remedied.\n",
+    "housing.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2e82f698-8ed7-4a08-a25f-b7c0d93e383a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 7. print first 5 records (glimpse new dataframe)\n",
+    "housing.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b72c33fa-a7fd-49e2-b1d3-8b5f62ebc3d4",
+   "metadata": {},
+   "source": [
+    "# Identifying correlations using scatterplot"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "526f422b-c951-4040-83cb-ca2166155121",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 8. See if there is any correlation (small) between \"price\" and \"living SQFT\"\n",
+    "sns.relplot(data=housing, x='sqft_living', y='price')\n",
+    "# Note: Seaborn relational plot (relplot) visualizes how variables relate to each other within a dataset."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "844d92f0-32bc-4bab-becd-a8ad873b75a5",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 9. See if there is any correlation (essentially *none*) between \"price\" and year built\n",
+    "sns.relplot(data=housing, x='yr_built', y='price')\n",
+    "# Here, essentially, there is no line that can be drawn through any discernable \"grouping\"."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8baff061-0dbf-4c1d-91f5-3c9ef64fec04",
+   "metadata": {},
+   "source": [
+    "# Identifying correlations using grid scatter plots"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "1a4aae34-d7d4-41fe-9e61-22188d0ef18b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 10. Faster way of displaying relationships between pairs of datapoints.\n",
+    "\n",
+    "sns.pairplot(data=housing,\n",
+    "             y_vars=['price', 'sqft_living', 'sqft_above'],\n",
+    "             x_vars=['price', 'sqft_living', 'sqft_above'],\n",
+    "             diag_kind='kde')\n",
+    "\n",
+    "# Note: By default, pairplot() creates a grid of axes\n",
+    "# That is, each numeric variable in a dataset shared across y-axis, across a single *row*; and the x-axis across a single *column*.\n",
+    "# Each cell plots corresponding x and y variables"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "19a79e97-f44a-4107-9a9e-32754dc986fa",
+   "metadata": {},
+   "source": [
+    "# Identifying correlations with r-values\n",
+    "# (i.e., a measure of any linear trend between two variables)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e5b403dc-f90e-4689-8346-345da7888545",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 11. Display pairwise correlations of *all* columns in the dataframe.\n",
+    "housing.corr().head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "dd6acb6c-08ab-42e7-8616-78025e889fbb",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 12. Display one attribute's correlation (\"price\") to *all* other columns in dataframe, sorted in descending order by price.\n",
+    "housing.corr()[['price']].sort_values(by='price', ascending=False)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4277479e-389e-4f5f-ae29-2faa44c4fb2c",
+   "metadata": {},
+   "source": [
+    "# Identify correlations with heatmaps"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "46ce4f9f-33b2-42b5-90d4-ad85537b50f2",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 13. Visually display correlations using Seaborn's heatmap() function.\n",
+    "sns.heatmap(data=housing.corr(), cmap='Blues', vmin=1.0, vmax=1.0)\n",
+    "\n",
+    "# Note: vmin/vmax properties determine color shading"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "53b71d60-e9df-4618-a575-922f6478c82b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 14. Visually condense the correlations of one variable to other variables.\n",
+    "sns.heatmap(data=housing.corr()[['price']].sort_values(by='price', ascending=False), annot=True, cmap='Blues', cbar=False, fmt=f'.2f')\n",
+    "\n",
+    "# Note: amnot value set to *True* so that r-values are displayed in each cell."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "add9f8ac-ae46-48fd-90f9-4073a0d82597",
+   "metadata": {},
+   "source": [
+    "# Create, validate and use simple linear regression model\n",
+    "## Steps:\n",
+    "### 1. Split dataset (training vs test datasets)\n",
+    "### 2. Create model from \"training\" dataset\n",
+    "### 3. Validate model using \"test\" dataset\n",
+    "### 4. If valid, predict values"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f426685d-ec65-4990-955a-d6b0682ce6ec",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 15. import sklearn\n",
+    "from sklearn.model_selection import train_test_split \n",
+    "from sklearn.linear_model import LinearRegression \n",
+    "\n",
+    "# Note: sklearn used for predictive data analysis \n",
+    "# Built on top of NumPy, SciPy, and matplotlib\n",
+    "\n",
+    "# i. split data (X: IV and Y: DV split into training and test datasets)\n",
+    "\n",
+    "x_train, x_test, y_train, y_test = train_test_split(housing[['sqft_living']], housing[['price']], test_size=0.33, random_state=42)\n",
+    "\n",
+    "# ii. create model from training dataset\n",
+    "linearModel = LinearRegression() # instantiates LinearRegression object\n",
+    "linearModel.fit(x_train, y_train) # accepts x,y training sets and fits regression line to dataset"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c12b0eb7-7942-4dd8-8cf9-7e62865ef783",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# iii. validate model using test dataset\n",
+    "linearModel.score(x_test, y_test)\n",
+    "\n",
+    "# Note: score() function accepts test dataset and returns R squared value for regression.\n",
+    "# R squared value is percent of change in DV attributable to to the IV(s). "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "bd06b316-3571-4b2a-9d09-0561d7ebd2a7",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# iv. use model to make predictions on test data\n",
+    "# accepts IV \"test\" dataset and returns predicted DV \"outcome\" dataset values\n",
+    "y_predicted = linearModel.predict(x_test)\n",
+    "y_predicted\n",
+    "\n",
+    "# Note: Model predicts output y-axis (DV) values, on basis of input x-axis (IV) values in x_test."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7005eb31-4158-4e10-89a6-a7f7200c6c8f",
+   "metadata": {},
+   "source": [
+    "# Plot predicted data (preparation)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4faa966a-cc28-4271-8ec1-bd2049bf1a21",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 16. make dataframe of predicted prices\n",
+    "predicted = pd.DataFrame(y_predicted, columns=['price_predicted'])\n",
+    "predicted"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "536779f0-e854-4308-a16f-497c388db298",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 17. combine test data and predicted data (reset index for test columns for accurate comparisons between test/predicted values)\n",
+    "combined = predicted.join([x_test.reset_index(drop=True), y_test.reset_index(drop=True)])\n",
+    "combined # Note: Predicted values are *not* highly correlated to actual values (again, roughly, only 35%)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b68f241d-a5c6-49c6-a7ae-ad3d1c61d7a1",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 18. melt price and price_predicted columns into single column\n",
+    "# Note: As mentioned, \"sqft_living\" is the IV. And, price_type indicates whether price is an actual or predicted price.\n",
+    "melted = pd.melt(combined, id_vars=['sqft_living'], value_vars=['price', 'price_predicted'], var_name='price_type', value_name='price_value')\n",
+    "\n",
+    "# display first 5 records\n",
+    "melted.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ccb6bf32-430c-46c5-ac6e-b1ba4dc3aa36",
+   "metadata": {},
+   "source": [
+    "# Plot predicted data"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d719ca97-dd0f-40ba-8e8d-11f6c4f2cca0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 19. Plot text (actual) and training (predicted) data\n",
+    "sns.relplot(data=melted, x='sqft_living', y='price_value', hue='price_type')\n",
+    "\n",
+    "# Note: \"hue\" parameter used to distinguish between actual and predicted values"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f35201d1-855d-4710-bbf3-b7cfb3565615",
+   "metadata": {},
+   "source": [
+    "# Plot linear regression (using simple estimation)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "faf1a378-03c6-4723-9924-0fefb662ad1b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 20. Similar to plot above; here, linear regression model automatically generated (simple \"estimation\").\n",
+    "sns.lmplot(data=housing, x='sqft_living', y='price', ci=None, scatter_kws={'s':5}, line_kws={\"lw\":1, 'color':'red'})"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7fa4f82d-b525-4afb-8f2f-89512ef87159",
+   "metadata": {},
+   "source": [
+    "# Plot residuals - preparation"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4c6ed749-5c9e-4207-83d2-600e667b6248",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 21. print dataframe summary to confine attribute names and data types\n",
+    "combined.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3ad01c46-4f06-44a4-9729-67946d9eb567",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 22. Plotting regression residuals can also be used to evaluate models, apart from the score() function\n",
+    "# Hre, residual values stored in new attribute in *combined* DF called \"residual.\"\n",
+    "combined['residual'] = combined.price - combined.price_predicted\n",
+    "combined.head()\n",
+    "\n",
+    "# Note: The difference between DV and IV values indicate variance in predictions."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "84ed435f-bd69-4467-83f6-39fc679a3ad9",
+   "metadata": {},
+   "source": [
+    "# Plot residuals using Seaborn"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f51e8bcf-a687-4b2c-b2aa-b9a9cdbc7f66",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 23. Plot residuals using Seaborn relplot(). Here, x-axis is IV and y-axis are the residuals.\n",
+    "g = sns.relplot(data=combined, x='sqft_living', y='residual')\n",
+    "\n",
+    "# Next, draw horizontal line where y-axis = 0 (i.e., prediction equals actual value -- in other words, prediction is correct).\n",
+    "for ax in g.axes.flat:\n",
+    "    ax.axhline(0, ls='--')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4a416444-730e-4cda-ba0f-a516fb295e51",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 24. Similar to relplot (fitted model) vs implot (simple estimation), residplot is simple residual estimation\n",
+    "sns.residplot(data=housing, x='sqft_living', y='price', scatter_kws={'s':5})"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.9"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
