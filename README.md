@@ -28,7 +28,9 @@
     - Use Jupyter Notebook/labs to display program
     - Provide Screenshots of installation
 5. [A4 README.md](a4/README.md "My A4 README.md file")
-    - TBD
+    - Backwards Engineer Python Program
+    - Use Jupyter Notebook/labs to display program
+    - Provide Screenshots of installation
 6. [A5 README.md](a5/README.md "My A5 README.md file")
     - TBD
 7. [P2 README.md](p2/README.md "My P2 README.md file")
