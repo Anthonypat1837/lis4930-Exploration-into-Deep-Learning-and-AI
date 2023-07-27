@@ -1,0 +1,9 @@
+Fish Properties
+
+Species: Species name
+Weight: Weight in grams
+Length1: Vertical length in centimeters
+Length2: Diagonal length in centimeters
+Length3: Cross length in centimeters
+Height: Height in centimeters
+Width: Width in centimeters
