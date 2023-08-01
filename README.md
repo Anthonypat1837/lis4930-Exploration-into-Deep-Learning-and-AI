@@ -36,4 +36,10 @@
     - Use Jupyter Notebook/labs to display program
     - Provide Screenshots of installation
 7. [P2 README.md](p2/README.md "My P2 README.md file")
-    - TBD
+    - Backwards Engineer Python Program
+    - Use Jupyter Notebook/labs to display program
+    - Provide Screenshots of installation
+8. [In-Class README.md](In-Class-Exercise/Simple%20Regression/README.md "My SkillSet README.md file")
+    - Backwards Engineer Python Program
+    - Use Jupyter Notebook/labs to display program
+    - Provide Screenshots of installation
